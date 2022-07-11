@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function Header() {
     return (
-        <div className="w-100% h-15 bg-blue-500 shadow-headerShaow">
-            <div>
+        <div className="relative top-0 w-screen h-15 bg-white shadow-headerShaow">
+            <div className="absolute left-6 top-1.5 small:left-12 medium:left-30 large:left-52.5">
                 <Image
-                    alt="rick and morty logo"
-                    src="https://assets.vercel.com/image/upload/v1538361091/repositories/next-js/next-js-bg.png"
-                    width={1200}
-                    height={400}
+                    alt="rick-morty-navbar"
+                    src="/img/rick-morty-navbar.svg"
+                    width={46}
+                    height={49}
                 />
             </div>
         </div>
