@@ -10,6 +10,7 @@ export default function Logo() {
                     width={312}
                     height={104}
                     layout="responsive"
+                    priority={true}
                 />
             </div>
         </div>
