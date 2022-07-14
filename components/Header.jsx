@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Header() {
     return (
-        <div className="relative top-[0px] w-screen h-[60px] bg-white shadow-headerShadow z-10">
+        <header className="relative min-w-[360px] w-[100%] h-[60px] bg-white shadow-headerShadow">
             <Link href="/">
                 <a>
                     <div className="absolute left-[24px] top-[6px] small:left-[48px] medium:left-[120px] large:left-[210px]">
@@ -17,6 +17,6 @@ export default function Header() {
                     </div>
                 </a>
             </Link>
-        </div>
+        </header>
     )
 }
