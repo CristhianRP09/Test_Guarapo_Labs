@@ -1,5 +1,5 @@
-import AdvancedFilter from "./AdvancedFilter";
-import FilterByName from "./FilterByName";
+import AdvancedFilter from "../Search&Filter/AdvancedFilter";
+import FilterByName from "../Search&Filter/FilterByName";
 
 export default function Search() {
   return (
