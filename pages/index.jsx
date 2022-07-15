@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UpperLayout from "../components/UpperLayout";
@@ -7,8 +7,11 @@ import GenderMobile from "../components/selectInputs/selectInputsMobile/GenderMo
 import StatusMobile from "../components/selectInputs/selectInputsMobile/StatusMobile";
 import Image from "next/image";
 import FilterByName from "../components/Search&Filter/FilterByName";
+import { Content } from "../components/Content";
 
-export default function Home() {
+export default function Home({ characters }) {
+
+  const { results } = characters;
 
   const [menu, setMenu] = useState(false);
 
@@ -40,10 +43,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative mx-auto mt-[48px] medium:mt-[61px] w-[312px] small:w-[644px] medium:w-[760px] large:w-[1020px] grid small:grid-cols-2 medium:grid-cols-3 large:grid-cols-4 gap-x-[20px] gap-y-[24px]">
-          <div className="w-[312px] medium:w-[240px] h-[308px] medium:h-[240px] bg-green-300"></div>
-          <div className="w-[312px] medium:w-[240px] h-[308px] medium:h-[240px] bg-green-300"></div>
-        </div>
+        <Content ch={results} />
 
         {/* Load More */}
         <button className="block relative mx-auto mt-[32px] medium:mt-[48px] w-[146px] medium:w-[154px] h-[36px] bg-[#F2F9FE] font-roboto font-medium text-[14px] tracking-[1.25px] text-[#2196F3] shadow-loadMoreShadow rounded-[4px]">
@@ -88,5 +88,16 @@ export default function Home() {
 
       <Footer />
     </div>
+
   )
+}
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/`);
+    const characters = await res.json();
+    return { props: { characters } }
+  } catch (error) {
+    console.log(error);
+  }
 }
