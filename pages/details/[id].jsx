@@ -1,4 +1,6 @@
 import Link from "next/link";
+import CharacterName from "../../components/details/CharacterName";
+import CharacterPicture from "../../components/details/CharacterPicture";
 import GoBackButton from "../../components/details/GoBackButton";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
@@ -7,7 +9,13 @@ export default function Details({ data }) {
     return (
         <div className="relative min-w-[360px] w-[100vw] min-h-[100vh] h-fit bg-white z-0 overflow-x-hidden ">
             <Header />
-            <h1>{data.name}</h1>
+            <main className="relative m-0 pt-[24px] medium:pt-[16px] pb-[83px] medium:pb-[36px]">
+                <Link href="/">
+                    <a><GoBackButton /></a>
+                </Link>
+                <CharacterPicture img={data.image} />
+                <CharacterName name={data.name} />
+            </main>
             <Footer />
         </div>
     )
