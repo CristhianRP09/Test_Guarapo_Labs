@@ -5,12 +5,16 @@ export default function EpisodeInformation({ url }) {
     const [state, setState] = useState({})
 
     const getEpisode = async (link) => {
-        const res = await fetch(link);
-        const data = await res.json();
-        setState(data);
+        try {
+            const res = await fetch(link);
+            const data = await res.json();
+            setState(data);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    useEffect( () => {
+    useEffect(() => {
         getEpisode(url)
     }, [])
 

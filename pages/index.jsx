@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UpperLayout from "../components/UpperLayout";
@@ -7,11 +7,41 @@ import GenderMobile from "../components/selectInputs/selectInputsMobile/GenderMo
 import StatusMobile from "../components/selectInputs/selectInputsMobile/StatusMobile";
 import Image from "next/image";
 import FilterByName from "../components/Search&Filter/FilterByName";
-import { Content } from "../components/Content";
+import Content from '../components/Content';
+import { UrlFilterContext } from "../contexts/UrlFilterContext";
 
 export default function Home({ characters }) {
+  const [chars, setChars] = useState(characters.results);
+  const [page, setPages] = useState(1);
+  
+  const {urlFilter} = useContext(UrlFilterContext);
+  console.log(urlFilter);
 
-  const { results } = characters;
+  useEffect(() => {
+    if (urlFilter !== 'https://rickandmortyapi.com/api/character/') {
+      goToUrlFilter(urlFilter);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlFilter])
+
+  useEffect(() => {
+    if (page > 1) {
+      getMoreCharacters(page);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page])
+
+  const getMoreCharacters = async (page) => {
+    const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page}`);
+    const data = await res.json();
+    setChars([...chars, ...data.results]);
+  }
+
+  const goToUrlFilter = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setChars(data.results);
+  }
 
   const [menu, setMenu] = useState(false);
 
@@ -43,10 +73,10 @@ export default function Home({ characters }) {
         </div>
 
         {/* Content */}
-        <Content ch={results} />
+        <Content characters={chars} />
 
         {/* Load More */}
-        <button className="block relative mx-auto mt-[32px] medium:mt-[48px] w-[146px] medium:w-[154px] h-[36px] bg-[#F2F9FE] font-roboto font-medium text-[14px] tracking-[1.25px] text-[#2196F3] shadow-loadMoreShadow rounded-[4px]">
+        <button onClick={e => setPages(page + 1)} className="block relative mx-auto mt-[32px] medium:mt-[48px] w-[146px] medium:w-[154px] h-[36px] bg-[#F2F9FE] font-roboto font-medium text-[14px] tracking-[1.25px] text-[#2196F3] shadow-loadMoreShadow rounded-[4px]">
           LOAD MORE
         </button>
       </main>
