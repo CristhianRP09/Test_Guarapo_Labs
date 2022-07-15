@@ -88,11 +88,10 @@ export default function Home({ characters }) {
 
       <Footer />
     </div>
-
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const res = await fetch(`https://rickandmortyapi.com/api/character/`);
     const characters = await res.json();

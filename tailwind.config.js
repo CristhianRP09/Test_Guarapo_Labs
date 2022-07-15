@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     borderWidth: {
-    '1': '1px',
-    '1.5': '1.5px'
-  },
+      '1': '1px',
+      '1.5': '1.5px'
+    },
     screens: {
       'small': '692px', /* 24px + 312px + 20px + 312px + 24px = 692px*/
       'medium': '940px', /* 90px + 240px + 20px + 240px + 20px + 240px + 90px = 940px*/
@@ -19,7 +19,7 @@ module.exports = {
     extend: {
       backgroundOpacity: {
         '54': '0.54'
-       },
+      },
       borderOpacity: {
         '38': '0.38'
       },
@@ -42,6 +42,22 @@ module.exports = {
       fontFamily: {
         'Karla': ['Karla'],
         'roboto': ['Roboto']
+      },
+      keyframes: {
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '50%': { transform: 'rotate(20deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+        reverseRotate: {
+          '0%': { transform: 'rotate(20deg)' },
+          '50%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(20deg)' },
+        },
+      },
+      animation: {
+        'rotateSpiral': 'rotate 3s linear infinite',
+        'rotateBackground': 'reverseRotate 3s linear infinite',
       },
     },
   },
