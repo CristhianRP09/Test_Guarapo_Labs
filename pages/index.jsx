@@ -2,10 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UpperLayout from "../components/UpperLayout";
-import SpecieMobile from "../components/selectInputs/selectInputsMobile/SpecieMobile";
-import GenderMobile from "../components/selectInputs/selectInputsMobile/GenderMobile";
-import StatusMobile from "../components/selectInputs/selectInputsMobile/StatusMobile";
-import Image from "next/image";
 import FilterByName from "../components/Search&Filter/FilterByName";
 import Content from '../components/Content';
 import { UrlFilterContext } from "../contexts/UrlFilterContext";
@@ -19,7 +15,7 @@ export default function Home({ characters }) {
   const [chars, setChars] = useState(characters.results);
   const [maxPages, setMaxPages] = useState(characters.info.pages);
 
-  const { menu, setMenu } = useContext(AdvanceFilterMenuMobile);
+  const { menu } = useContext(AdvanceFilterMenuMobile);
 
   const { urlBase, gender, name, status, page, setPage } = useContext(UrlFilterContext);
   let filter = `${gender}${name}${status}`;
@@ -46,13 +42,13 @@ export default function Home({ characters }) {
     }
   }
 
-  const goToUrlFiltered = async (filter) => {
+  const goToUrlFiltered = async filter => {
     try {
-      setPage(1);
-      const res = await fetch(`${urlBase}?page=${page}${filter}`);
+      const res = await fetch(`${urlBase}?page=1${filter}`);
       const data = await res.json();
       setChars(data.results);
       setMaxPages(data.info.pages);
+      setPage(1);
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +79,7 @@ export default function Home({ characters }) {
       </main>
 
       {/* Advanced Filters Menu (square) in Mobile Version */}
-      {menu && <AdvancedFilter /> }
+      {menu && <AdvancedFilter />}
 
       <Footer />
     </div>
