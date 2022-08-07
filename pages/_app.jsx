@@ -1,11 +1,18 @@
 import '../styles/globals.css';
 import Head from "next/head";
 import { UrlFilterContext } from '../contexts/UrlFilterContext';
+import { AdvanceFilterMenuMobile } from '../contexts/AdvanceFilterMenuMobile';
 import { useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
-  
-  const [urlFilter, setUrlFilter] = useState('https://rickandmortyapi.com/api/character/');
+
+  const urlBase = 'https://rickandmortyapi.com/api/character/';
+  const [gender, setGender] = useState('');
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState('');
+  const [page, setPage] = useState(1);
+
+  const [menu, setMenu] = useState(false);
 
   return (
     <>
@@ -14,8 +21,10 @@ function MyApp({ Component, pageProps }) {
         <link rel="shortcut icon" href="/img/favicon.ico" />
       </Head>
 
-      <UrlFilterContext.Provider value={{urlFilter, setUrlFilter}}>
-        <Component {...pageProps} />
+      <UrlFilterContext.Provider value={{ urlBase, gender, setGender, name, setName, status, setStatus, page, setPage }}>
+        <AdvanceFilterMenuMobile.Provider value={{ menu, setMenu }}>
+          <Component {...pageProps} />
+        </AdvanceFilterMenuMobile.Provider>
       </UrlFilterContext.Provider>
     </>
   )
